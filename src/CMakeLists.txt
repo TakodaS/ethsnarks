@@ -4,6 +4,10 @@ add_library(ethsnarks_common STATIC export.cpp import.cpp stubs.cpp utils.cpp cr
 target_link_libraries(ethsnarks_common ff nlohmann_json ${CMAKE_THREAD_LIBS_INIT})
 target_include_directories(ethsnarks_common PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
+set(ethsnarks_common_headers export.hpp import.hpp stubs.hpp utils.hpp crypto/sha256.h crypto/blake2b.h)
+set_target_properties(ethsnarks_common PROPERTIES PUBLIC_HEADER "${ethsnarks_common_headers}")
+install(TARGETS ethsnarks_common LIBRARY DESTINATION lib PUBLIC_HEADER DESTINATION include/ethsnarks)
+
 add_executable(verify verify.cpp)
 target_link_libraries(verify ethsnarks_gadgets)
 
